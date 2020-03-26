@@ -57,31 +57,34 @@
 
     <update id="update" parameterType="com.dc.kingbasedemo.entity.Menu">
         update PUBLIC.m_menu set
+        DEL_FLG ='0'
         <if test="vo.parentId != null and vo.parentId != ''">
-            PARENT_ID=#{vo.parentId},
+            ,PARENT_ID=#{vo.parentId}
         </if>
         <if test="vo.isLeaf != null and vo.isLeaf != ''">
-            IS_LEAF=#{vo.isLeaf},
+            ,IS_LEAF=#{vo.isLeaf}
         </if>
         <if test="vo.isPop != null and vo.isPop != ''">
-            IS_POP=#{vo.isPop},
+            ,IS_POP=#{vo.isPop}
         </if>
         <if test="vo.helpUrl != null and vo.helpUrl != ''">
-            HELP_URL=#{vo.helpUrl},
+            ,HELP_URL=#{vo.helpUrl}
         </if>
         <if test="vo.menuUrl != null and vo.menuUrl != ''">
-            MENU_URL=#{vo.menuUrl},
+            ,MENU_URL=#{vo.menuUrl}
         </if>
         <if test="vo.busiCode != null and vo.busiCode != ''">
-            BUSI_CODE=#{vo.busiCode},
+            ,BUSI_CODE=#{vo.busiCode}
         </if>
         <if test="vo.menuName != null and vo.menuName != ''">
-            MENU_NAME=#{vo.menuName},
+            ,MENU_NAME=#{vo.menuName}
         </if>
         <if test="vo.menuIco != null and vo.menuIco != ''">
-            MENU_ICO=#{vo.menuIco},
+            ,MENU_ICO=#{vo.menuIco}
         </if>
-            MENU_SORT=#{vo.menuSort}
+        <if test="vo.menuSort != null and vo.menuSort != ''">
+            ,MENU_SORT=#{vo.menuSort}
+        </if>
         where MENU_ID = #{vo.menuId}
     </update>
 

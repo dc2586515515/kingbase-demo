@@ -37,7 +37,7 @@ public class MenuService {
     public void update(String menuId){
         Menu menu = new Menu();
         menu.setMenuId(menuId);
-        menu.setHelpUrl("hupu.com");
+        menu.setHelpUrl("www.abcdefg.com");
         menuMapper.update(menu);
     }
 
