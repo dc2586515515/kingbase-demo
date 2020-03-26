@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dc.kingbasedemo.mapper.MenuMapper" >
+    <select id="queryAll" resultType="java.util.Map">
+        SELECT
+            MENU_ID AS menuId,
+            PARENT_ID AS parentId,
+            IS_LEAF AS isLeaf,
+            IS_POP AS isPop,
+            HELP_URL AS helpUrl,
+            MENU_URL AS menuUrl,
+            BUSI_CODE AS busiCode,
+            MENU_NAME AS menuName,
+            MENU_ICO AS menuIco,
+            MENU_SORT AS menuSort,
+            DEL_FLG AS delFlg
+        FROM
+            PUBLIC.m_menu
+            where DEL_FLG = '0'
+    </select>
+
+    <select id="queryByMenuId" parameterType="java.lang.String" resultType="com.dc.kingbasedemo.entity.Menu">
+        SELECT
+            MENU_ID AS menuId,
+            PARENT_ID AS parentId,
+            IS_LEAF AS isLeaf,
+            IS_POP AS isPop,
+            HELP_URL AS helpUrl,
+            MENU_URL AS menuUrl,
+            BUSI_CODE AS busiCode,
+            MENU_NAME AS menuName,
+            MENU_ICO AS menuIco,
+            MENU_SORT AS menuSort,
+            DEL_FLG AS delFlg
+        FROM
+            PUBLIC.m_menu
+            where DEL_FLG = '0'
+            and MENU_ID = #{menuId}
+    </select>
+
+    <insert id="insert" parameterType="com.dc.kingbasedemo.entity.Menu" >
+        INSERT INTO PUBLIC.m_menu ( MENU_ID, PARENT_ID, IS_LEAF, IS_POP, HELP_URL, MENU_URL, BUSI_CODE, MENU_NAME, MENU_ICO, MENU_SORT, DEL_FLG )
+        VALUES
+            ( #{vo.menuId},
+            #{vo.parentId},
+            #{vo.isLeaf},
+            #{vo.isPop},
+            #{vo.helpUrl},
+            #{vo.menuUrl},
+            #{vo.busiCode},
+            #{vo.menuName},
+            #{vo.menuIco},
+            #{vo.menuSort},
+            #{vo.delFlg}
+            )
+    </insert>
+
+    <update id="update" parameterType="com.dc.kingbasedemo.entity.Menu">
+        update PUBLIC.m_menu set
+        <if test="vo.parentId != null and vo.parentId != ''">
+            PARENT_ID=#{vo.parentId},
+        </if>
+        <if test="vo.isLeaf != null and vo.isLeaf != ''">
+            IS_LEAF=#{vo.isLeaf},
+        </if>
+        <if test="vo.isPop != null and vo.isPop != ''">
+            IS_POP=#{vo.isPop},
+        </if>
+        <if test="vo.helpUrl != null and vo.helpUrl != ''">
+            HELP_URL=#{vo.helpUrl},
+        </if>
+        <if test="vo.menuUrl != null and vo.menuUrl != ''">
+            MENU_URL=#{vo.menuUrl},
+        </if>
+        <if test="vo.busiCode != null and vo.busiCode != ''">
+            BUSI_CODE=#{vo.busiCode},
+        </if>
+        <if test="vo.menuName != null and vo.menuName != ''">
+            MENU_NAME=#{vo.menuName},
+        </if>
+        <if test="vo.menuIco != null and vo.menuIco != ''">
+            MENU_ICO=#{vo.menuIco},
+        </if>
+            MENU_SORT=#{vo.menuSort}
+        where MENU_ID = #{vo.menuId}
+    </update>
+
+    <update id="delete" parameterType="com.dc.kingbasedemo.entity.Menu">
+        update PUBLIC.m_menu set DEL_FLG ='1' where MENU_ID=#{vo.menuId}
+    </update>
+
+</mapper>
